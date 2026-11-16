@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#1c2a30" />
+    <title>余时之城 · 单店交互演示</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231c2a30'/%3E%3C/svg%3E"
+    />
+    <script type="module" crossorigin src="./assets/index-BXGaoxLy.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-4iKgo6O_.css">
+  </head>
+  <body>
+    <div id="app">
+      <h1 class="sr-only">余时之城单店交互演示</h1>
+      <div id="viewport">
+        <div id="stage" data-testid="stage"></div>
+      </div>
+
+      <header id="hud-top">
+        <div class="cluster">
+          <p class="badge" data-testid="demo-badge">交互演示</p>
+          <p class="chip" data-testid="alo-state" id="alo-state">空闲</p>
+          <p class="chip"><span class="k">生命</span> <strong id="carried-time" data-testid="carried-time">08:00:00</strong></p>
+          <p class="chip">
+            <span class="k">储备</span> <strong id="reserve-time" data-testid="reserve-time">00:00:00</strong>
+            <span class="k">不流逝</span>
+          </p>
+          <p class="chip"><span class="k">已结算</span> <strong id="settlement-count" data-testid="settlement-count">0</strong></p>
+        </div>
+        <div class="cluster">
+          <button type="button" id="pause-btn" data-testid="pause" aria-pressed="false">暂停</button>
+          <button type="button" id="reset-btn" data-testid="reset">重置场景</button>
+          <button type="button" id="rules-btn" data-testid="rules-open">说明</button>
+        </div>
+      </header>
+
+      <p id="action-note" data-testid="action-note" hidden></p>
+
+      <section id="settlement" data-testid="settlement" hidden>
+        <h2 id="settlement-title" data-testid="settlement-title"></h2>
+        <p id="settlement-math" data-testid="settlement-math"></p>
+        <button type="button" id="settlement-dismiss" data-testid="settlement-dismiss">知道了</button>
+      </section>
+
+      <footer id="hud-bottom">
+        <section class="plate" id="plate-restock" data-testid="plate-restock" data-station="restock">
+          <button type="button" class="plate-select" data-testid="select-restock">
+            <span class="plate-name">补货</span>
+            <span class="plate-status" data-testid="restock-status">可用</span>
+            <span class="plate-detail" data-testid="restock-detail"></span>
+            <span class="bar" data-testid="restock-progress"><span data-testid="restock-progress-fill"></span></span>
+          </button>
+          <button type="button" class="primary" data-testid="restock-action">派往此处</button>
+        </section>
+        <section class="plate" id="plate-checkout" data-testid="plate-checkout" data-station="checkout">
+          <button type="button" class="plate-select" data-testid="select-checkout">
+            <span class="plate-name">收银</span>
+            <span class="plate-status" data-testid="checkout-status">可用</span>
+            <span class="plate-detail" data-testid="checkout-detail"></span>
+            <span class="bar" data-testid="checkout-progress"><span data-testid="checkout-progress-fill"></span></span>
+          </button>
+          <button type="button" class="primary" data-testid="checkout-action">派往此处</button>
+        </section>
+      </footer>
+
+      <p id="boot-error" data-testid="boot-error" hidden></p>
+      <div id="rotate-hint">请把手机横过来。这个演示按横屏便利店来排。</div>
+
+      <dialog id="rules">
+        <div class="rules-card">
+          <h2>这页是交互演示</h2>
+          <p>只在这一页的内存里跑。重置场景不会碰旧的 <code>rtc.save.v1</code>。面板上的时间是正在走的演示钟，不是概念图里的 18:42:09。</p>
+          <h3>按现有 GDD 用上的规则</h3>
+          <ul>
+            <li>生命时间在活动时减少。个人储备不随时间变少。</li>
+            <li>初步测试钟：现实 1 秒等于游戏 6 秒。暂停、切到后台、离线都把钟停住。</li>
+            <li>工作当时的流逝已经算在倒计时里。结算只加这一笔报酬，不再扣一次。</li>
+            <li>改派和取消不发报酬。已经流逝的生命时间不退回。休息也不恢复生命时间。</li>
+            <li>报酬来自「便利店兼职」这个支付方，记在演示账上。</li>
+            <li>生命时间超出随身测试上限时，多出来的转入个人储备，不悄悄丢掉。</li>
+            <li>生命归零就冻结。本页没有救援流程。</li>
+          </ul>
+          <h3>还没定、所以只当演示参数</h3>
+          <ul>
+            <li>开局 8 游戏小时、随身上限 24 游戏小时，是 GDD 里的测试假设。</li>
+            <li>个人储备开局没有写死，这里从 0 开始，也没有终端存取。</li>
+            <li>GDD 未定稿参考是便利店 45 游戏分钟、报酬 90 游戏分钟，并要求原型先测更短的一单。两个岗位的秒数是本页配置：补货 24 游戏秒 / 报酬 48，收银 30 游戏秒 / 报酬 60，费用 0。比例仍是 2:1。</li>
+            <li>待处理订单 1 只为了让收银台有一张单子。</li>
+            <li>2 倍和 4 倍、团队储备、伙伴、寻路、走路动画都不在这页。</li>
+          </ul>
+          <h3>画面</h3>
+          <p>背景、人物、阴影、货架沿和柜台遮挡用的是已确认的分层图。概念图上的寿命和标价没有贴进来。生成的补货和收银姿势在衣服和脸上有细微差别；手和货架、手指和收银机只按现有图层叠上，没有做过生产级接触精修。</p>
+          <button type="button" id="rules-close">关闭</button>
+        </div>
+      </dialog>
+    </div>
+    <p id="live" class="sr-only" aria-live="polite"></p>
+  </body>
+</html>

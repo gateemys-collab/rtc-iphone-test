@@ -1,0 +1,34 @@
+余时之城 · 单店交互演示交付包
+第三方与素材来源说明
+本文件随可运行页面一起打包。只记录这次包里实际有的东西，以及构建时用过、但没有打进页面的工具。没有把开发技能目录里的许可证套到画面上。
+
+一、页面里有什么
+这个 zip 的可运行文件是本项目自己的 HTML、CSS、JavaScript，加上下面列出的 PNG。
+运行时没有打进任何第三方 JavaScript 库，也没有嵌入字体文件。页面只按名字使用设备上已经安装的中文字体，不会去下载字体。
+
+二、画面来源
+这些 PNG 来自已确认的《余时之城》现代便利店视觉交接，画布 1600×900。背景和阿洛各姿势由当时可用的图像生成工具画出，再在本地抠成透明层、抽出阴影和遮挡。本包没有把概念图上的寿命数字和价格数字放进去。
+
+运行时用到的文件：
+- assets/layers/00-background-no-characters.png
+  SHA-256 98a017dc32adc3e548787950ab5fd97b509baf03c7b6014e64916b4dc3ad607b
+- assets/layers/10-ground-contact-shadow.png
+- assets/layers/20-alo-idle.png
+- assets/layers/restock/10-ground-contact-shadow.png
+- assets/layers/restock/20-alo-restock.png
+- assets/layers/restock/30-shelf-front-lip.png
+- assets/layers/checkout/10-ground-contact-shadow.png
+- assets/layers/checkout/20-alo-checkout-behind-counter.png
+- assets/layers/checkout/30-counter-register-occluder.png
+- assets/layers/checkout/40-hands-over-register.png
+
+授权状态：交接记录写明，生成服务的商用条款和发布披露这次没有另行核验，不能把「AI 生成」写成已经获准商用。本说明也不新写一份许可。正式对外发布前需要单独复核。
+
+三、构建和验收工具
+下面三个包只在开发机上用来编译和跑浏览器验收，license 字段抄自本目录 package-lock.json。它们的代码没有放进这个 zip。
+
+- vite 8.3.8，license 字段 MIT
+- typescript 5.9.3，license 字段 Apache-2.0
+- playwright-core 1.65.1，license 字段 Apache-2.0
+
+没有把这些工具的完整许可证正文复制进来。字段以 lockfile 为准。
